@@ -1,0 +1,191 @@
+{
+ "species_with_encounters": 846,
+ "species_total": 1025,
+ "by_gen": {
+  "1": [
+   151,
+   151
+  ],
+  "2": [
+   95,
+   100
+  ],
+  "3": [
+   135,
+   135
+  ],
+  "4": [
+   96,
+   107
+  ],
+  "5": [
+   146,
+   156
+  ],
+  "6": [
+   68,
+   72
+  ],
+  "7": [
+   74,
+   88
+  ],
+  "8": [
+   81,
+   96
+  ],
+  "9": [
+   0,
+   120
+  ]
+ },
+ "versions_with_data": [
+  "Let’s Go！伊布",
+  "Let’s Go！皮卡丘",
+  "X",
+  "Y",
+  "剑",
+  "剑: 冠之雪原",
+  "剑: 铠之孤岛",
+  "叶绿",
+  "圆形竞技场",
+  "太阳",
+  "心金",
+  "暗之旋风XD",
+  "月亮",
+  "欧米伽红宝石",
+  "水晶",
+  "火红",
+  "珍珠",
+  "白",
+  "白2",
+  "白金",
+  "皮卡丘",
+  "盾",
+  "盾: 冠之雪原",
+  "盾: 铠之孤岛",
+  "究极之日",
+  "究极之月",
+  "红",
+  "红宝石",
+  "红（日版）",
+  "绿宝石",
+  "绿（日版）",
+  "蓝",
+  "蓝宝石",
+  "蓝（日版）",
+  "金",
+  "钻石",
+  "银",
+  "阿尔法蓝宝石",
+  "魂银",
+  "黑",
+  "黑2"
+ ],
+ "areas_total": 1539,
+ "place_names": {
+  "areas_used": 1432,
+  "before_areas": {
+   "full": 49,
+   "base": 65,
+   "en": 1318
+  },
+  "after_areas": {
+   "full": 1173,
+   "base": 224,
+   "en": 35
+  },
+  "version_rows": 65341,
+  "before_rows": {
+   "full": 1562,
+   "base": 1703,
+   "en": 62076
+  },
+  "after_rows": {
+   "full": 61108,
+   "base": 3907,
+   "en": 326
+  },
+  "merged_rows": 35467,
+  "untranslated_examples": [
+   "Glacier Room",
+   "Hoenn Pokecenter",
+   "Iron Room",
+   "Johto Pokemart",
+   "Kalos Berry Fields",
+   "Kanto Pokecenter",
+   "Kanto Underground Path",
+   "Lost Tower（1F）",
+   "Lost Tower（2F）",
+   "Lost Tower（3F）",
+   "Lost Tower（4F）",
+   "Lost Tower（5F）",
+   "Max Dens in the Galar Wild Area",
+   "Mirage Island",
+   "Mossdeep Space Center",
+   "Nature Sanctuary",
+   "ONBS（2F）",
+   "ONBS（3F）",
+   "ONBS（4F）",
+   "ONBS（Roof）",
+   "Pokespot（Cave Pokespot）",
+   "Pokespot（Oasis Pokespot）",
+   "Pokespot（Rock Pokespot）",
+   "Random caves across the Isle of Armor",
+   "Roaming Galar Wild Areas",
+   "Roaming the Crown Tundra",
+   "Roaming the Isle of Armor",
+   "Rocky Mountain Room",
+   "Shadow Pokémon Lab（B1F）",
+   "Shadow Pokémon Lab（B2F）",
+   "Sinnoh Pokemart",
+   "Unknown; all Poliwag",
+   "Unknown; all Rattata",
+   "Unknown; all bugs",
+   "Viapos Chamber"
+  ]
+ },
+ "species_per_version": {
+  "Let’s Go！伊布": 117,
+  "红": 106,
+  "蓝": 106,
+  "皮卡丘": 106,
+  "剑: 铠之孤岛": 272,
+  "火红": 140,
+  "叶绿": 140,
+  "红（日版）": 102,
+  "绿（日版）": 102,
+  "心金": 284,
+  "魂银": 284,
+  "盾: 铠之孤岛": 269,
+  "X": 354,
+  "Y": 353,
+  "究极之日": 363,
+  "究极之月": 362,
+  "Let’s Go！皮卡丘": 117,
+  "盾: 冠之雪原": 383,
+  "剑: 冠之雪原": 384,
+  "剑": 354,
+  "盾": 352,
+  "金": 151,
+  "水晶": 170,
+  "钻石": 277,
+  "珍珠": 278,
+  "白金": 290,
+  "太阳": 238,
+  "月亮": 236,
+  "白": 239,
+  "暗之旋风XD": 100,
+  "白2": 292,
+  "银": 151,
+  "黑": 239,
+  "黑2": 293,
+  "红宝石": 129,
+  "蓝宝石": 129,
+  "绿宝石": 158,
+  "欧米伽红宝石": 132,
+  "阿尔法蓝宝石": 132,
+  "蓝（日版）": 6,
+  "圆形竞技场": 55
+ }
+}

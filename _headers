@@ -1,0 +1,9 @@
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
+/cries/*
+  Cache-Control: public, max-age=31536000, immutable
+/data/*
+  Cache-Control: public, max-age=3600
+/download/version.json
+  Cache-Control: no-cache
+  Access-Control-Allow-Origin: *

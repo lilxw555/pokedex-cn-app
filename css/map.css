@@ -1,0 +1,33 @@
+/* 地区地图（原创示意图） */
+.map-regions{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.map-regions::-webkit-scrollbar{display:none}
+.map-regions .chip{flex:none;min-height:36px;padding:6px 14px;border-radius:999px;border:1px solid var(--line,#dfe3e8);background:var(--card,#fff);color:inherit;font:inherit;cursor:pointer}
+.map-regions .chip[aria-pressed="true"]{background:#3a9a5b;border-color:#3a9a5b;color:#fff;font-weight:700}
+.map-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 8px}.map-bar select{min-height:36px;max-width:52vw}
+.map-zoom{margin-left:auto;display:flex;gap:4px}.map-zoom .glass-btn{min-width:38px;min-height:36px;padding:0 8px;font-size:16px}
+.map-wrap{border-radius:16px;overflow:hidden;border:1px solid var(--line,#dfe3e8);background:#cfe8f7}
+.map-svg{display:block;width:100%;height:auto;max-height:68vh;touch-action:none;-webkit-user-select:none;user-select:none;cursor:grab}
+.m-sea{fill:#cfe8f7}.m-land{fill:#eef4e2;stroke:#c9d8b4;stroke-width:.6}
+.mr .ln{fill:none;stroke:#c9b48a;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.mr.has .ln{stroke:#b08a4a}.mr.water .ln{stroke:#5aa0d8;stroke-dasharray:1.6 1.2}.mr.water.has .ln{stroke:#2f7fc4}
+.mr .hit,.mnode .hit{fill:none;stroke:transparent;stroke-width:5;pointer-events:stroke;cursor:pointer}.mnode .hit{fill:transparent;stroke:none;pointer-events:all}
+.mr.on .ln{stroke:#e0453a;stroke-width:2.2}
+.mn{stroke:#4a5568;stroke-width:.5;opacity:.55}.mn.has{opacity:1}
+.mn.city{fill:#fff}.mn.cave{fill:#7a6a5a}.mn.mt{fill:#a88f6a}.mn.forest{fill:#6cbf6a}.mn.lake{fill:#7cc0ea}.mn.spot{fill:#f2c14e}
+#mapSvg .mnode text{font-size:10px!important;line-height:1;text-anchor:middle;fill:#2d3748;font-weight:700;paint-order:stroke;stroke:#eef4e2;stroke-width:2.8px;pointer-events:none}
+.mnode.on .mn{stroke:#e0453a;stroke-width:1;opacity:1}
+.mnode:focus,.mr:focus{outline:none}.mnode:focus-visible .mn,.mr:focus-visible .ln{stroke:#e0453a;stroke-width:1.2}
+.map-panel{margin-top:10px;padding:12px 14px;scroll-margin-bottom:110px}
+.mp-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}.mp-head b{font-size:var(--fs-l,18px);margin-right:8px}
+.mp-head .glass-btn{min-width:36px;min-height:36px;padding:0}
+.mp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.mp-mon{display:flex;gap:6px;align-items:center;padding:6px 8px;border-radius:12px;background:var(--card,#fff);border:1px solid var(--line,#e3e6ea);border-left:3px solid var(--c);color:inherit;text-decoration:none;min-height:52px;min-width:0;overflow:hidden}
+.mp-mon img{width:40px;height:40px;flex:none;image-rendering:pixelated}.mp-mon span{display:flex;flex-direction:column;min-width:0}
+.mp-mon b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mp-mon small{font-size:11px;opacity:.75}.mp-v{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.map-note{margin:10px 2px 0}
+.map-link::after{content:"地图"}.map-link{font-size:11px;margin-left:4px;padding:1px 6px;border-radius:6px;background:#3a9a5b;color:#fff!important;text-decoration:none;white-space:nowrap}
+@media (max-width:420px){.mp-list{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.map-bar select{max-width:46vw}}
+@media (prefers-color-scheme:dark){
+ .map-wrap{background:#1b2a38;border-color:#2c3440}.m-sea{fill:#1b2a38}.m-land{fill:#26302a;stroke:#3a4a3a}
+ .mr .ln{stroke:#7a6a4e}.mr.has .ln{stroke:#c9a46a}.mr.water .ln{stroke:#3d6f99}.mr.water.has .ln{stroke:#62a8e0}
+ .mn{stroke:#cbd5e0}.mn.city{fill:#e2e8f0}.mnode text{fill:#e2e8f0;stroke:#26302a}
+ .map-regions .chip{background:#1f242c;border-color:#2c3440}.mp-mon{background:#1f242c;border-color:#2c3440}.map-regions .chip[aria-pressed="true"]{background:#3a9a5b}}

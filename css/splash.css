@@ -1,0 +1,57 @@
+/* ===== 启动动画：精灵球落下 → 中心按钮发光 → 上下分开露出网站（约 1.5s） ===== */
+#splash{--ball:132px;--red:#E62829;--seam:#24262c;position:fixed;top:0;left:0;right:0;bottom:0;top:0;right:0;bottom:0;left:0;inset:0;z-index:300;cursor:pointer;-webkit-user-select:none;user-select:none;
+ animation:sp-fade .22s ease-in 1.3s forwards,sp-gone .01s linear 3s forwards}
+/* 纯 CSS 兜底：即使所有 JS 都没执行，3 秒后启动画面也不再遮挡页面 */
+@keyframes sp-gone{to{visibility:hidden;opacity:0;pointer-events:none}}
+#splash .sp-half{position:absolute;left:0;right:0;height:50%;background:var(--bg,#f4f5f7);will-change:transform;
+ animation:sp-open-top .5s cubic-bezier(.7,0,.25,1) .92s forwards}
+#splash .sp-top{top:0;border-bottom:1px solid transparent}
+#splash .sp-bot{bottom:0;animation-name:sp-open-bot}
+/* 球的上下两半各自在对应的“幕布”里，一起下落、一起分开 */
+#splash .sp-ball{position:absolute;left:50%;width:var(--ball);height:calc(var(--ball)/2);margin-left:calc(var(--ball)/-2);will-change:transform;
+ animation:sp-drop .62s cubic-bezier(.3,0,.4,1) both}
+#splash .sp-top .sp-ball{bottom:0;border-radius:var(--ball) var(--ball) 0 0;background:radial-gradient(circle at 34% 30%,rgba(255,255,255,.45) 0 9%,transparent 30%),var(--red);
+ box-shadow:inset 0 -6px 0 var(--seam),inset 0 6px 14px rgba(255,255,255,.25)}
+#splash .sp-bot .sp-ball{top:0;border-radius:0 0 var(--ball) var(--ball);background:var(--surface,#fff);
+ box-shadow:inset 0 6px 0 var(--seam),inset 0 -8px 16px rgba(0,0,0,.06),0 10px 24px -10px rgba(16,24,40,.25)}
+/* 中心按钮：上下各半个，发光 */
+#splash .sp-btn{position:absolute;left:50%;width:38px;height:19px;margin-left:-19px;background:var(--surface,#fff);border:6px solid var(--seam);box-sizing:content-box}
+#splash .sp-top .sp-btn{bottom:-6px;border-radius:38px 38px 0 0;border-bottom:0}
+#splash .sp-bot .sp-btn{top:-6px;border-radius:0 0 38px 38px;border-top:0}
+#splash .sp-glow{position:absolute;left:50%;width:30px;height:30px;margin-left:-15px;border-radius:50%;background:radial-gradient(circle,#fff 0 30%,rgba(255,255,255,0) 70%);
+ opacity:0;animation:sp-glow .5s ease-out .5s both}
+#splash .sp-top .sp-glow{bottom:-15px}#splash .sp-bot .sp-glow{top:-15px}
+#splash .sp-ring{position:absolute;left:50%;width:44px;height:44px;margin-left:-22px;border-radius:50%;box-shadow:0 0 0 2px var(--accent,#2f6fec),0 0 12px 2px var(--accent,#2f6fec);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent,#2f6fec) 55%,transparent),0 0 12px 2px color-mix(in srgb,var(--accent,#2f6fec) 35%,transparent);
+ opacity:0;animation:sp-ring .55s ease-out .52s both}
+#splash .sp-top .sp-ring{bottom:-22px}#splash .sp-bot .sp-ring{top:-22px}
+/* 18 种属性色小点：打开瞬间向外迸散 */
+#splash .sp-dots{position:absolute;left:50%;top:50%;width:0;height:0;z-index:2;pointer-events:none}
+#splash .sp-dots i{position:absolute;width:12px;height:12px;margin:-6px;border-radius:50%;background:var(--c);opacity:0;
+ animation:sp-burst .62s cubic-bezier(.2,.8,.3,1) .86s both;--d:230px}
+/* 标题：按钮发光时出现在球下方，随下半幕一起离开 */
+#splash .sp-title{position:absolute;left:0;right:0;top:calc(var(--ball)/2 + 26px);text-align:center;color:var(--text,#1d1f24);font-weight:800;font-size:22px!important;letter-spacing:.06em;
+ opacity:0;animation:sp-title .38s ease-out .42s both}
+#splash .sp-title small{display:block;margin-top:4px;color:var(--muted,#6b7080);font-weight:500;font-size:12px!important;letter-spacing:.12em}
+#splash .sp-title,#splash .sp-title *{font-family:inherit}
+@keyframes sp-drop{0%{transform:translateY(-62vh)}58%{transform:translateY(0)}68%{transform:translateY(-34px)}80%{transform:translateY(0)}88%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+@keyframes sp-glow{0%{opacity:0;transform:scale(.4)}45%{opacity:1;transform:scale(1.6)}100%{opacity:.85;transform:scale(1)}}
+@keyframes sp-ring{0%{opacity:0;transform:scale(.6)}40%{opacity:1}100%{opacity:0;transform:scale(2.6)}}
+@keyframes sp-title{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes sp-open-top{to{transform:translateY(-102%)}}
+@keyframes sp-open-bot{to{transform:translateY(102%)}}
+@keyframes sp-burst{0%{opacity:0;transform:rotate(var(--a)) translateX(0) scale(.4)}25%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateX(var(--d)) scale(1)}}
+@keyframes sp-fade{to{opacity:0;visibility:hidden;pointer-events:none}}
+/* 跳过：快速淡出 */
+#splash.sp-skip{animation:sp-fade .16s ease-in forwards}
+#splash.sp-skip *{animation-play-state:paused}
+/* 减少动态效果：静态球 + 0.25s 淡出 */
+@media (prefers-reduced-motion:reduce){
+ #splash,#splash *{animation:none!important}
+ #splash .sp-title{opacity:1}
+ #splash .sp-glow{opacity:.85}
+ #splash .sp-dots{display:none}
+ #splash{transition:opacity .25s ease-in;opacity:1}
+ #splash.sp-out{opacity:0}
+}
+@media (max-width:640px){#splash{--ball:112px}#splash .sp-dots i{--d:120px}}
+@media (prefers-color-scheme:dark){#splash{--seam:#0b0c0f}}

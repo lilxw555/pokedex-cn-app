@@ -1,0 +1,58 @@
+{
+  "name": "pokedex-cn",
+  "productName": "宝可梦中文图鉴",
+  "version": "3.3.1",
+  "description": "宝可梦中文图鉴（粉丝制作的非商业离线版）",
+  "author": "Pokedex CN fan project",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win portable --x64",
+    "dist:linux": "electron-builder --linux dir --x64"
+  },
+  "build": {
+    "appId": "cn.pokedex.fan",
+    "productName": "宝可梦中文图鉴",
+    "files": [
+      "main.js",
+      "preload.js",
+      "updater-main.js",
+      "site/**/*",
+      "build/icon.png"
+    ],
+    "asar": true,
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "宝可梦中文图鉴.exe",
+      "requestExecutionLevel": "user"
+    },
+    "linux": {
+      "target": [
+        "dir"
+      ],
+      "icon": "build/icon.png",
+      "category": "Education"
+    },
+    "afterPack": "./build/afterPack.js"
+  },
+  "devDependencies": {
+    "electron": "^45.2.2",
+    "electron-builder": "^26.18.0",
+    "resedit": "^3.1.0"
+  }
+}

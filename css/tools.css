@@ -1,0 +1,192 @@
+/* ===== v3：工具箱 / 每日一只 / 收集 / 进化条件 / 猜一猜玩法 ===== */
+/* 说明级字号（三级字号之一） */
+body .tool-tile small,body .d-k,body .d-f,body .d-n .muted,body .d-pill,body .dl-link,body .evo-cond i,body .evo-or,body .evo-cond em,body .dmg-fields label,
+body .dmg-tags span,body .dx-row .muted,body .dx-desc,body .mini-mon span,body .mini-mon em,body .rec-item small,body .rec-item i,body .prow>span:first-child,body .pn .muted,
+body .seg button,body .sh-row span,body .sh-row em,body .lb-col .muted,body .assume summary,body .rec h3 .muted,body .col-ring span,body .ko{font-size:var(--fs-cap)!important}
+body .tool-tile .ti,body .dmg-big b,body .col-ring b,body .cry-btn{font-size:var(--fs-title)!important}
+
+/* 顶栏下载小链接 */
+.dl-link{margin-left:auto;margin-right:6px;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:999px}
+.dl-link:hover{color:var(--accent);background:var(--accent-weak)}
+.is-app .dl-only{display:none!important}
+
+/* 工具网格 */
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.tool-tile{display:grid;grid-template-columns:44px 1fr;grid-template-rows:auto auto;column-gap:12px;row-gap:2px;align-items:center;padding:16px;border-radius:var(--r);
+ background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);color:var(--text);text-decoration:none;transition:transform .2s,box-shadow .2s}
+.tool-tile:hover{transform:translateY(-2px);box-shadow:var(--pop)}
+.tool-tile .ti{grid-row:1/3;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:var(--surface);background:color-mix(in srgb,var(--c) 14%,var(--surface));color:var(--c);font-weight:800}
+.tool-tile b{font-weight:700}.tool-tile small{color:var(--muted)}
+.tool-view .back{margin:0 0 10px;border-radius:999px;padding:6px 14px}
+.tool-view>.panel{margin-bottom:14px}
+@media(max-width:560px){.tool-grid{grid-template-columns:1fr 1fr;gap:12px}.tool-tile{grid-template-columns:1fr;padding:14px}.tool-tile .ti{grid-row:auto;margin-bottom:8px}}
+
+/* 每日一只：紧凑一行，可收起 */
+.daily{margin:0 0 10px}
+.daily:empty{display:none}
+.daily:not(.mini){display:flex;align-items:center;gap:8px;padding:6px 6px 6px 8px;border-radius:16px;background:var(--surface);background:color-mix(in srgb,var(--c) 9%,var(--surface));border:1px solid var(--line);border:1px solid color-mix(in srgb,var(--c) 22%,var(--line))}
+.d-main{display:flex;align-items:center;gap:10px;flex:1;min-width:0;color:var(--text);text-decoration:none}
+.d-main img{width:52px;height:52px;flex:none;image-rendering:pixelated}
+.d-txt{display:flex;flex-direction:column;min-width:0;gap:1px}
+.d-k{color:var(--text);color:color-mix(in srgb,var(--c) 70%,var(--text));font-weight:700}
+.d-n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d-f{color:var(--muted);display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.d-x{flex:none;width:30px;height:30px;border-radius:50%;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.d-x:hover{background:var(--surface-2)}
+.d-pill{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:4px 12px;cursor:pointer}
+.d-pill b{color:var(--text)}
+
+/* 卡片上的“已抓到”小标记：右下角一枚很小的精灵球 */
+.card.caught::after{content:"";position:absolute;right:10px;bottom:10px;width:10px;height:10px;border-radius:50%;
+ background:linear-gradient(#e0453a 0 45%,#1d1f24 45% 55%,#fff 55%);box-shadow:0 0 0 1px rgba(0,0,0,.25);opacity:.85}
+.glass-btn.on-caught{background:#fde7e4;border-color:#f2a79e;color:#9a2318}
+
+/* 进化条件 */
+.evo-item{width:auto;min-width:112px;max-width:180px}
+.evo-conds{display:flex;flex-direction:column;align-items:center;gap:3px;margin-top:4px}
+.evo-cond{display:flex;flex-wrap:wrap;justify-content:center;gap:3px;align-items:center}
+.evo-cond i{font-style:normal;padding:1px 7px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--text);line-height:1.5}
+.evo-cond em{font-style:normal;color:var(--muted)}
+.evo-or{color:var(--muted)}
+
+/* 队伍：共同弱点 + 推荐 */
+.shared-box{padding:8px 10px;border-radius:12px;background:#fff1e6;border:1px solid #f3c39b}
+.unc-badge.shared{border-color:#f3a46b}
+.heat tr.shared th{box-shadow:inset 4px 0 0 #f08a3c}
+.lg-shared{background:#fff1e6;outline:2px solid #f08a3c}
+.rec{margin-top:16px}.rec h3{margin:0 0 8px;font-weight:700}
+.rec-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.rec-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px;border-radius:14px;border:1px solid var(--line);background:var(--surface);background:color-mix(in srgb,var(--c) 8%,var(--surface));color:var(--text);cursor:pointer;font:inherit}
+.rec-item img{width:56px;height:56px;image-rendering:pixelated}.rec-item small{color:var(--muted);text-align:center}.rec-item i{font-style:normal;color:var(--accent)}
+.rec-item:hover{border-color:var(--c)}
+
+/* 伤害计算器 */
+.dmg-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.dmg-side{padding:16px}.dmg-side h2{margin:0 0 10px}
+.dmg-mon{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:6px 10px;border-radius:14px;background:var(--surface);background:color-mix(in srgb,var(--c) 9%,var(--surface))}
+.dmg-mon img{width:56px;height:56px;image-rendering:pixelated}.dmg-mon>span{display:flex;flex-direction:column;gap:3px}
+.dmg-side .picker{margin-bottom:10px}.dmg-side .picker input{width:100%;padding:9px 14px;border-radius:12px}
+.dmg-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dmg-fields label{display:flex;flex-direction:column;gap:3px;color:var(--muted)}
+.dmg-fields input,.dmg-fields select,.dmg-move input{font:inherit;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);color:var(--text);min-width:0}
+.dmg-move{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:12px 16px}
+.dmg-move .mv{display:flex;align-items:center;gap:8px;flex:1 1 240px}.dmg-move .mv input{flex:1}
+.dmg-move .ck{display:flex;align-items:center;gap:6px}
+.dmg-out{padding:16px}
+.dmg-big{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:8px 0}
+.dmg-big b{font-weight:800}
+.hpbar{height:12px;border-radius:99px;background:#d9f2df;overflow:hidden;display:flex}
+.hpbar .lo{background:#e0453a}.hpbar .hi{background:repeating-linear-gradient(45deg,#f39a8f 0 6px,#f6b8b0 6px 12px)}
+.ko{margin:10px 0 8px;font-weight:700}.ko.ohko{color:#c0392b}.ko.zero{color:var(--muted)}
+.dmg-tags{display:flex;flex-wrap:wrap;gap:6px}.dmg-tags span{padding:2px 9px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line)}
+.rolls{margin-top:8px;word-break:break-all}
+.assume{margin:0 4px 20px;color:var(--muted)}.assume summary{cursor:pointer}.assume p{line-height:1.6}
+@media(max-width:700px){.dmg-grid{grid-template-columns:1fr}}
+
+/* 特性 / 道具列表 */
+.tool-view .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.tool-view .toolbar input[type=search]{flex:1 1 220px;padding:10px 14px;border-radius:12px}
+.dexlist{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.dx-row{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.dx-row summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.dx-row summary::-webkit-details-marker{display:none}
+.dx-row[open] summary b{color:var(--accent)}
+.dx-desc{flex-basis:100%;color:var(--muted);line-height:1.5}
+.dx-row.it{display:flex;gap:12px;align-items:center}.dx-row.it>div{display:flex;flex-wrap:wrap;gap:2px 10px;align-items:baseline}
+.dx-row.it img{width:36px;height:36px;flex:none;image-rendering:pixelated}
+.dx-mons{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.mini-mon{display:flex;align-items:center;gap:4px;padding:2px 10px 2px 2px;border-radius:999px;background:var(--surface);background:color-mix(in srgb,var(--c) 10%,var(--surface));border:1px solid var(--line);color:var(--text);text-decoration:none}
+.mini-mon img{width:32px;height:32px;image-rendering:pixelated}.mini-mon em{font-style:normal;color:var(--muted)}
+
+/* 收集进度 */
+.col-top{display:flex;align-items:center;gap:20px;padding:18px;margin-bottom:14px}
+.col-top p{margin:4px 0 10px}
+.col-ring{--p:0;flex:none;width:112px;height:112px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+ background:radial-gradient(closest-side,var(--surface) 78%,transparent 79%),conic-gradient(#e0453a calc(var(--p)*1%),var(--surface-2) 0)}
+.col-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}.col-cols .panel{padding:16px}.col-cols h2{margin:0 0 10px}
+.prow{display:grid;grid-template-columns:96px 1fr 92px;align-items:center;gap:10px;padding:4px 0}
+.pbar{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}.pbar i{display:block;height:100%;background:#e0453a;border-radius:99px}
+.pn{text-align:right;white-space:nowrap}
+@media(max-width:700px){.col-cols{grid-template-columns:1fr}.prow{grid-template-columns:84px 1fr 84px}}
+
+/* 猜一猜：玩法切换 + 叫声 + 数值提示 + 排行榜 */
+.seg{display:flex;gap:4px;padding:4px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);margin:0 auto 12px;width:max-content;max-width:100%;overflow-x:auto}
+.seg button{border:0;background:transparent;color:var(--muted);padding:7px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;font:inherit}
+.seg button.on{background:var(--surface);color:var(--text);font-weight:700;box-shadow:var(--shadow)}
+.cry-btn{position:absolute;width:96px;height:96px;border-radius:50%;border:0;background:var(--accent);color:#fff;cursor:pointer;box-shadow:var(--pop);z-index:2}
+.stage[data-mode=cry] img,.stage[data-mode=stat] img{opacity:0}
+.stage.revealed[data-mode=cry] img,.stage.revealed[data-mode=stat] img{opacity:1}
+.stage.revealed .cry-btn,.stage.revealed .stat-hint{display:none}
+.stat-hint{position:absolute;inset:8% 4%;display:flex;flex-direction:column;justify-content:center;gap:5px;z-index:2}
+.sh-types{display:flex;gap:6px;justify-content:center;margin-bottom:4px}
+.sh-row{display:grid;grid-template-columns:40px 1fr 34px;gap:8px;align-items:center}
+.sh-row i{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}.sh-row i b{display:block;height:100%;background:var(--accent);border-radius:99px}
+.sh-row em{font-style:normal;text-align:right}
+#timeStart{display:block;margin:10px auto 0}#timeStart[hidden]{display:none}
+.lb{margin-top:14px;padding:12px 16px}.lb summary{cursor:pointer;font-weight:700}
+.lb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:10px}
+.lb-col ol{margin:6px 0 0;padding-left:20px}.lb-col li{display:flex;gap:8px;align-items:baseline}
+@media(max-width:700px){.lb-grid{grid-template-columns:1fr 1fr}}
+
+@media(prefers-color-scheme:dark){
+ .shared-box{background:#3a2a1d;border-color:#7a4f2a}.lg-shared{background:#3a2a1d}
+ .glass-btn.on-caught{background:#3d2220;border-color:#7d3a33;color:#ffb3aa}
+ .hpbar{background:#1f3a27}
+}
+
+.loading-msg{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0}
+.load-fail{grid-column:1/-1;max-width:420px;margin:30px auto;padding:20px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:18px}
+.load-fail p{color:var(--muted)}.load-fail button{font:inherit;padding:10px 22px;border-radius:999px;border:0;background:var(--accent);color:#fff}
+.load-fail small{display:block;margin-top:10px;color:var(--muted);word-break:break-all}
+
+.app-only{display:none!important}.has-updater .app-only{display:grid!important}
+@media(max-width:560px){.has-updater .app-only{display:grid!important}}
+.upd-bg{position:fixed;top:0;left:0;right:0;bottom:0;z-index:400;background:rgba(16,18,24,.38);display:flex;align-items:center;justify-content:center;padding:20px}
+.upd{background:var(--surface);color:var(--text);border-radius:20px;padding:22px;max-width:400px;width:100%;box-shadow:var(--pop)}
+.upd h3{margin:0 0 4px;font-weight:800}.upd-notes{margin:12px 0;padding-left:20px;line-height:1.6}
+.upd-prog{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin:12px 0 6px}.upd-prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+.upd-btns{display:flex;justify-content:flex-end;gap:10px;margin-top:14px}
+body .upd h3{font-size:var(--fs-title)!important}body .upd .small{font-size:var(--fs-cap)!important}
+
+.notice{position:relative;text-align:left}.notice h3{margin-top:4px}
+.notice-ball{display:block;width:30px;height:30px;border-radius:50%;margin-bottom:8px;background:linear-gradient(#e62829 0 45%,var(--text) 45% 55%,var(--surface) 55%);box-shadow:0 0 0 2px var(--text) inset}
+.notice .upd-notes li{margin:4px 0}
+@media(prefers-color-scheme:dark){.upd-bg{background:rgba(0,0,0,.55)}}
+
+/* v3.1 修复：工具子页返回按钮固定在顶部 */
+.tool-view .back{position:sticky;top:0;z-index:5;box-shadow:var(--shadow);display:inline-flex;align-items:center;min-height:40px}
+/* v3.1 修复：猜一猜在 320–430px 下不重叠 */
+.stat-hint[hidden],.cry-btn[hidden]{display:none!important}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);width:100%;max-width:460px;overflow:visible}
+.seg button{padding:7px 4px;min-width:0;white-space:normal;line-height:1.25}
+.guess-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.guess-top .streak{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:flex-end}
+.guess .opt{display:flex;align-items:center;gap:8px;text-align:left;min-width:0;height:auto;min-height:44px;line-height:1.3;white-space:normal;word-break:break-all}
+.guess .opt kbd{flex:none}
+.stat-hint{inset:4% 2%}
+@media(max-width:360px){.stage{width:min(260px,76vw);height:min(260px,76vw)}.sh-row{grid-template-columns:34px 1fr 30px;gap:6px}}
+/* v3.1 修复：筛选面板打开时类型条不再从面板两侧露出 */
+body.filter-open #typeChips,body.filter-open #daily,body.filter-open .count-row,body.filter-open #grid{opacity:.25;pointer-events:none;transition:opacity .15s}
+@media(max-width:560px){.filter-panel{left:0;right:0;width:auto}}
+
+/* 剪影：canvas 叠在原图位置；未揭晓时原图透明，揭晓后显示原图 */
+.stage{position:relative}
+.stage img{filter:none!important;-webkit-filter:none!important}
+#guessSil{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;pointer-events:none;transition:opacity .6s}
+.stage:not(.revealed) img{opacity:0}
+.stage.revealed #guessSil,.stage[data-mode=cry] #guessSil,.stage[data-mode=stat] #guessSil{opacity:0}
+.stage.revealed img{opacity:1}
+/* 属性数值 / 听叫声模式：提示层在正常文档流里，不和图片叠在一起 */
+.stage[data-mode=stat]:not(.revealed){height:auto;min-height:0;display:block}
+.stage[data-mode=stat]:not(.revealed) img,.stage[data-mode=stat]:not(.revealed) .halo{display:none}
+.stage[data-mode=stat] .stat-hint{position:static;padding:8px 4px}
+/* 筛选面板：始终在最上层；打开时类型条隐藏（保留占位，不跳动） */
+.dex-bar{position:relative;z-index:40}
+#typeChips{position:relative;z-index:1}
+body.filter-open #typeChips{visibility:hidden}
+.pane-inner{padding-bottom:calc(132px + env(safe-area-inset-bottom))!important}
+.tool-view .back{top:calc(76px + env(safe-area-inset-top))}
+
+/* 3.3.1：返回按钮放在实色吸顶条里，滚动时下面的内容从条后面经过，不再被按钮“压住” */
+.tool-backbar{position:sticky;top:calc(76px + env(safe-area-inset-top));z-index:6;padding:4px 0 8px;margin:0 0 6px;background:var(--bg);box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(calc(-80px - env(safe-area-inset-top)) -100vmax 0 -100vmax)}
+.tool-view .tool-backbar .back{position:static;margin:0}

@@ -1,0 +1,20 @@
+{
+ "version": "3.3.1",
+ "versionCode": 8,
+ "notes": [
+  "修复城都地图「断崖洞窟」位置错误，现在位于湛蓝市西侧的 47号道路上，并能查看洞窟内出现的宝可梦",
+  "修复手机上滚动工具页面时，左上角「‹ 工具箱」返回按钮压住下方内容的问题",
+  "修复从链接直接打开地图上的城镇 / 洞窟时偶尔报错的问题",
+  "3.3.0 新增：九个地区的原创示意地图，点地点即可查看出现的宝可梦"
+ ],
+ "exe": {
+  "url": "https://pokedex-cn.netlify.app/download/pokedex-cn.exe",
+  "size": 178303045,
+  "sha256": "696fbe425e40a7586f7f71f13d95ac82079acbe164b0dd5d760c4c2ef7844905"
+ },
+ "apk": {
+  "url": "https://pokedex-cn.netlify.app/download/pokedex-cn.apk",
+  "size": 92013720,
+  "sha256": "bc18b368c2374aefeedb10f7d9b9c1bec05a936d1d24b76822d4e227c341a620"
+ }
+}

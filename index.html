@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f4f5f7" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)"><meta name="color-scheme" content="light dark">
+<title>宝可梦中文图鉴</title>
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/ios26.css"><link rel="stylesheet" href="css/dark.css"><link rel="stylesheet" href="css/theme.css"><link rel="stylesheet" href="css/splash.css"><link rel="stylesheet" href="css/tools.css"><link rel="stylesheet" href="css/battle.css"><link rel="stylesheet" href="css/map.css"></head>
+<body>
+<!-- 启动动画：每个会话只完整播放一次；点击 / 触摸 / 任意键跳过；页面在下面照常初始化 -->
+<div id="splash" role="presentation" aria-hidden="true"><div class="sp-half sp-top"><div class="sp-ball"><i class="sp-btn"></i><i class="sp-ring"></i><i class="sp-glow"></i></div></div><div class="sp-half sp-bot"><div class="sp-ball"><i class="sp-btn"></i><i class="sp-ring"></i><i class="sp-glow"></i></div><div class="sp-title">宝可梦中文图鉴<small>POKÉDEX · 全国图鉴</small></div></div><div class="sp-dots"></div></div>
+<script>(function(){var el=document.getElementById('splash'),seen=false;
+ try{seen=sessionStorage.getItem('pkdx-splash')==='1';sessionStorage.setItem('pkdx-splash','1')}catch(e){}
+ if(seen||/[?&]nosplash\b/.test(location.search)){el.parentNode.removeChild(el);return}
+ var reduced=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,done=false;
+ var C=['#9FA19F','#FF8000','#81B9EF','#9141CB','#915121','#AFA981','#91A119','#704170','#60A1B8','#E62829','#2980EF','#3FA129','#FAC000','#EF4179','#3DCEF3','#5060E1','#624D4E','#EF70EF'];
+ if(!reduced)el.querySelector('.sp-dots').innerHTML=C.map(function(c,i){return '<i style="--c:'+c+';--a:'+(i*20)+'deg"></i>'}).join('');
+ function remove(){if(done)return;done=true;off();if(el.parentNode)el.parentNode.removeChild(el);document.documentElement.classList.remove('splashing')}
+ function skip(e){if(e&&e.type==='keydown'){e.preventDefault();e.stopPropagation()}if(e&&e.type!=='keydown'){e.preventDefault&&e.preventDefault()}
+  if(reduced){el.classList.add('sp-out')}else el.classList.add('sp-skip');setTimeout(remove,reduced?260:180)}
+ function off(){window.removeEventListener('keydown',skip,true);el.removeEventListener('pointerdown',skip);el.removeEventListener('touchstart',skip)}
+ window.addEventListener('keydown',skip,true);el.addEventListener('pointerdown',skip);el.addEventListener('touchstart',skip,{passive:false});
+ el.addEventListener('animationend',function(e){if(e.target===el)remove()});
+ document.documentElement.classList.add('splashing');
+ if(reduced){requestAnimationFrame(function(){setTimeout(function(){el.classList.add('sp-out');setTimeout(remove,260)},60)})}
+ setTimeout(remove,reduced?600:1900);   // 兜底：无论如何 ≤1.9s 移除
+})();</script>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="goo" x="-20%" y="-60%" width="140%" height="220%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="8" result="b"/><feColorMatrix in="b" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -10"/></filter></defs></svg>
+<div class="bg" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="blob b4"></i><i class="blob b5"></i><i class="blob tint"></i><div class="grain"></div></div>
+
+<header class="topbar glass">
+ <a class="logo" href="#/pokedex"><span class="logo-icon" aria-hidden="true"></span><span>宝可梦中文图鉴</span></a>
+ <span class="section-title" id="sectionTitle">图鉴</span>
+ <a class="dl-link dl-only" href="download/" title="下载 Windows / Android 离线版">下载</a>
+</header>
+
+<main class="pager" id="pager">
+ <!-- 图鉴 -->
+ <section class="pane" id="pane-pokedex" data-key="pokedex" aria-label="图鉴"><div class="pane-inner">
+  <h1 class="title">宝可梦图鉴<small>全国图鉴 · 第一至第九世代</small></h1>
+  <div class="panel glass toolbar dex-bar">
+   <div class="search-row">
+    <input type="search" id="q" placeholder="搜索中文名、英文名或编号，如 皮卡丘 / 25" autocomplete="off" aria-label="搜索宝可梦">
+    <button class="icon-btn" id="filterBtn" type="button" aria-label="筛选与排序" aria-haspopup="true" aria-expanded="false" aria-controls="filterPanel">
+     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+     <span class="badge" id="filterBadge" hidden></span></button>
+   </div>
+   <div class="filter-panel" id="filterPanel" role="dialog" aria-label="筛选与排序" hidden>
+    <label class="fp-row"><span>世代</span><select id="gen" class="glass-btn"><option value="">全部世代</option></select></label>
+    <label class="fp-row"><span>排序</span><select id="sort" class="glass-btn"><option value="id">按编号</option><option value="bst">按种族值总和</option><option value="name">按名称</option></select></label>
+    <div class="fp-row"><span>收藏</span><button class="glass-btn" id="favOnly" type="button" aria-pressed="false">☆ 只看收藏</button></div>
+    <label class="fp-row"><span>收集</span><select id="caughtSel" class="glass-btn"><option value="">全部</option><option value="y">只看已抓到</option><option value="n">只看未抓到</option></select></label>
+    <div class="fp-foot"><button class="glass-btn" id="filterReset" type="button">重置</button><button class="glass-btn accent" id="filterDone" type="button">完成</button></div>
+   </div>
+  </div>
+  <div class="daily" id="daily"></div>
+  <div class="chips type-strip" id="typeChips" aria-label="按属性筛选"></div>
+  <div class="count-row"><span class="count" id="count"></span></div>
+  <div class="grid" id="grid"><p class="loading-msg">正在加载图鉴数据…</p></div>
+  <button class="more glass-btn" id="more" hidden>加载更多</button>
+ </div></section>
+
+ <!-- 属性相克 -->
+ <section class="pane" id="pane-types" data-key="types" aria-label="属性相克"><div class="pane-inner">
+  <h1 class="title">属性相克<small>选择防御方属性，立即查看弱点与抗性</small></h1>
+  <div class="panel glass calc">
+   <div class="muted" style="margin-bottom:10px">防御方属性（可选 1～2 个）</div>
+   <div class="chips" id="defChips"></div>
+   <div id="calcResult"></div>
+  </div>
+  <div class="panel glass">
+   <div class="panel-head"><h2>属性相克表（当前世代）</h2>
+    <div class="legend"><span><i class="lg x2"></i>2× 效果绝佳</span><span><i class="lg x05"></i>½× 效果不好</span><span><i class="lg x0"></i>0× 没有效果</span><span><i class="lg x1"></i>1× 普通</span></div>
+    <p class="muted small">行 = 攻击方，列 = 防御方。点击行或列标题可高亮。</p></div>
+   <div class="chart-wrap"><table class="chart" id="chart"></table></div>
+  </div>
+ </div></section>
+
+ <!-- 技能 -->
+ <section class="pane" id="pane-moves" data-key="moves" aria-label="技能"><div class="pane-inner">
+  <h1 class="title">技能图鉴<small>威力 · 命中 · PP · 效果说明</small></h1>
+  <div class="panel glass toolbar">
+   <input type="search" id="mq" placeholder="搜索技能名、英文名或说明，如 十万伏特" autocomplete="off">
+   <select id="mtype" class="glass-btn"><option value="">全部属性</option></select>
+   <select id="mcat" class="glass-btn"><option value="">全部分类</option></select>
+   <span class="count" id="mcount"></span>
+  </div>
+  <div class="panel glass moves">
+   <div class="mrow mhead" id="mhead">
+    <button data-k="name" class="mn">名称</button><button data-k="type" class="mt">属性</button><button data-k="cat" class="mc">分类</button>
+    <button data-k="power" class="mp num">威力</button><button data-k="acc" class="ma num">命中</button><button data-k="pp" class="mpp num">PP</button><span class="md">说明</span>
+   </div>
+   <div id="moveList"></div>
+  </div>
+ </div></section>
+
+ <!-- 队伍构建器 -->
+ <section class="pane" id="pane-team" data-key="team" aria-label="队伍"><div class="pane-inner">
+  <h1 class="title">队伍构建器<small>最多 6 只 · 一眼看出全队的属性弱点</small></h1>
+  <div class="panel glass toolbar">
+   <div class="picker" style="flex:1 1 260px"><input type="search" id="teamPick" placeholder="输入名称或编号，加入队伍" autocomplete="off"><div class="suggest glass strong" hidden></div></div>
+   <button class="glass-btn" id="teamShare">🔗 复制分享链接</button>
+   <button class="glass-btn" id="teamClear">清空</button>
+   <span class="count" id="teamCount"></span>
+  </div>
+  <div class="team-slots" id="teamSlots"></div>
+  <div class="panel glass" id="teamAnalysis"></div>
+ </div></section>
+
+ <!-- 对比 -->
+ <section class="pane" id="pane-compare" data-key="compare" aria-label="对比"><div class="pane-inner">
+  <h1 class="title">宝可梦对比<small>种族值雷达图叠加 · 双方属性克制</small></h1>
+  <div class="panel glass toolbar cmp-pickers">
+   <div class="picker"><input type="search" id="cmpA" placeholder="宝可梦 A" autocomplete="off"><div class="suggest glass strong" hidden></div></div>
+   <button class="glass-btn round" id="cmpSwap" aria-label="交换">⇄</button>
+   <div class="picker"><input type="search" id="cmpB" placeholder="宝可梦 B" autocomplete="off"><div class="suggest glass strong" hidden></div></div>
+  </div>
+  <div id="cmpBody"></div>
+ </div></section>
+
+ <!-- 工具箱 -->
+ <section class="pane" id="pane-tools" data-key="tools" aria-label="工具"><div class="pane-inner">
+  <div class="tool-home" id="toolHome">
+   <h1 class="title">工具箱<small>需要时再打开，平时不占地方</small></h1>
+   <div class="tool-grid" id="toolGrid"><a class="tool-tile" href="#/tools/damage" data-tile="damage" style="--c:#e8743b"><span class="ti" aria-hidden="true">⚔</span><b>伤害计算</b><small>招式伤害与几击倒</small></a><a class="tool-tile" href="#/tools/map" data-tile="map" style="--c:#3a9a5b"><span class="ti" aria-hidden="true">🗺️</span><b>地区地图</b><small>各地区地点与出现的宝可梦</small></a><a class="tool-tile" href="#/tools/battle" data-tile="battle" style="--c:#e0453a"><span class="ti" aria-hidden="true">⚡</span><b>对战模拟</b><small>组队与电脑回合制对战</small></a><a class="tool-tile" href="#/tools/guess" data-tile="guess" style="--c:#6e9bff"><span class="ti" aria-hidden="true">?</span><b>猜一猜</b><small>剪影 · 叫声 · 数值 · 限时</small></a><a class="tool-tile" href="#/tools/abilities" data-tile="abilities" style="--c:#8a63d2"><span class="ti" aria-hidden="true">✦</span><b>特性图鉴</b><small>效果与拥有者</small></a><a class="tool-tile" href="#/tools/items" data-tile="items" style="--c:#2fa36b"><span class="ti" aria-hidden="true">◆</span><b>道具图鉴</b><small>道具说明与分类</small></a><a class="tool-tile" href="#/tools/collection" data-tile="collection" style="--c:#e0453a"><span class="ti" aria-hidden="true">◓</span><b>收集进度</b><small>按世代、按版本统计</small></a><a class="tool-tile dl-only" href="download/" data-tile="download" style="--c:#5b6577"><span class="ti" aria-hidden="true">↓</span><b>下载 App</b><small>Windows / Android 离线版</small></a><a class="tool-tile app-only" href="#/tools" data-tile="update" style="--c:#5b6577"><span class="ti" aria-hidden="true">⟳</span><b>检查更新</b><small>获取离线版的新版本</small></a></div>
+  </div>
+  <div class="tool-view" id="tool-damage" hidden><div class="tool-backbar"><button class="glass-btn back" data-go="" type="button">‹ 工具箱</button></div>
+   <h1 class="title">伤害计算器<small>第五世代起的标准伤害公式</small></h1>
+   <div class="dmg-grid">
+    <div class="panel glass dmg-side" id="dmgAtk"><h2>攻击方</h2><div class="dmg-mon" data-mon></div>
+     <div class="picker"><input type="search" placeholder="更换宝可梦…" autocomplete="off"><div class="suggest glass strong" hidden></div></div>
+     <div class="dmg-fields"><label>等级<input type="number" min="1" max="100" value="50" data-f="lv"></label>
+      <label>攻击努力值<input type="number" min="0" max="252" step="4" value="252" data-f="ev"></label>
+      <label>个体值<input type="number" min="0" max="31" value="31" data-f="iv"></label>
+      <label>性格<select data-f="nat"><option value="1.1">加成 ×1.1</option><option value="1" selected>无修正</option><option value="0.9">减弱 ×0.9</option></select></label></div></div>
+    <div class="panel glass dmg-side" id="dmgDef"><h2>防守方</h2><div class="dmg-mon" data-mon></div>
+     <div class="picker"><input type="search" placeholder="更换宝可梦…" autocomplete="off"><div class="suggest glass strong" hidden></div></div>
+     <div class="dmg-fields"><label>等级<input type="number" min="1" max="100" value="50" data-f="lv"></label>
+      <label>HP 努力值<input type="number" min="0" max="252" step="4" value="0" data-f="hpev"></label>
+      <label>防御努力值<input type="number" min="0" max="252" step="4" value="0" data-f="ev"></label>
+      <label>性格<select data-f="nat"><option value="1.1">加成 ×1.1</option><option value="1" selected>无修正</option><option value="0.9">减弱 ×0.9</option></select></label></div></div>
+   </div>
+   <div class="panel glass dmg-move"><label class="mv">招式<input id="dmgMove" list="dmgMoves" placeholder="输入招式名" autocomplete="off"></label><datalist id="dmgMoves"></datalist>
+    <label class="ck"><input type="checkbox" id="dmgCrit"> 击中要害</label></div>
+   <div class="panel glass dmg-out" id="dmgOut" aria-live="polite"></div>
+   <details class="assume"><summary>计算说明与假设</summary><p class="muted small">伤害 = ⌊⌊⌊2×等级÷5+2⌋×威力×攻÷防⌋÷50⌋+2，再依次乘以：击中要害 ×1.5 → 随机数 85%–100%（16 档）→ 属性一致 ×1.5 → 属性相性。能力值按个体值、努力值、性格计算；物理招式用攻击/防御，特殊招式用特攻/特防（努力值与性格作用于对应能力）。未计入特性、道具、天气、场地、能力变化、太晶化、多目标减伤和烧伤；不检查该宝可梦能否学会此招式；固定伤害与威力不定的招式不参与计算。</p></details>
+  </div>
+  <div class="tool-view" id="tool-map" hidden><div class="tool-backbar"><button class="glass-btn back" data-go="" type="button">‹ 工具箱</button></div>
+   <h1 class="title">地区地图<small id="mapGames">原创示意图</small></h1>
+   <div class="map-regions" id="mapRegions" role="group" aria-label="选择地区"></div>
+   <div class="map-bar"><label><span class="sr-only">按版本筛选</span><select id="mapVer" class="glass-btn"><option value="">全部版本</option></select></label><span class="muted small" id="mapStat"></span>
+    <span class="map-zoom"><button class="glass-btn" id="mapZout" type="button" aria-label="缩小">−</button><button class="glass-btn" id="mapZreset" type="button" aria-label="还原">⤢</button><button class="glass-btn" id="mapZin" type="button" aria-label="放大">＋</button></span></div>
+   <div class="map-wrap"><svg id="mapSvg" class="map-svg" viewBox="0 0 100 100" role="img" aria-label="地区示意地图"></svg></div>
+   <div class="panel glass map-panel" id="mapPanel" aria-live="polite"></div>
+   <p class="muted small map-note">示意图为本站原创绘制，只表示大致方位与道路连接，并非游戏内地图；出现数据来自 PokeAPI。</p>
+  </div>
+  <div class="tool-view" id="tool-battle" hidden><div class="tool-backbar"><button class="glass-btn back" data-go="" type="button">‹ 工具箱</button></div>
+   <h1 class="title">对战模拟<small>Lv.50 · 回合制 · 与电脑对战</small></h1>
+   <div id="btBuild">
+    <div class="panel glass toolbar bt-tools">
+     <div class="picker"><input type="search" id="btPick" placeholder="输入名称或编号，加入队伍" autocomplete="off"><div class="suggest glass strong" hidden></div></div>
+     <button class="glass-btn" id="btRandom" type="button">🎲 随机队伍</button>
+    </div>
+    <div class="bt-team" id="btTeam"></div>
+    <div class="panel glass bt-start">
+     <label>电脑难度<select id="btLevel" class="glass-btn"><option value="0">简单</option><option value="1" selected>普通</option><option value="2">困难</option></select></label>
+     <label class="ck"><input type="checkbox" id="btSound" checked> 叫声</label>
+     <button class="glass-btn accent" id="btGo" type="button">开始对战 ›</button>
+    </div>
+    <p class="muted small bt-note">规则：双方 Lv.50，个体值 31、各项努力值 85、无性格修正；模拟属性相克、属性一致加成、物理/特殊、命中、要害、先制度、速度，以及灼伤 / 麻痹 / 中毒 / 睡眠、吸血、回复和连续攻击。特性、道具、能力变化与天气不模拟。</p>
+   </div>
+   <div id="btArena" hidden></div>
+  </div>
+  <div class="tool-view" id="tool-guess" hidden><div class="tool-backbar"><button class="glass-btn back" data-go="" type="button">‹ 工具箱</button></div>
+  <h1 class="title">谁是这只宝可梦？<small>四种玩法，连续答对挑战最高纪录</small></h1>
+  <div class="seg" id="guessMode" role="tablist" aria-label="玩法"><button data-m="sil" class="on" type="button">剪影</button><button data-m="cry" type="button">听叫声</button><button data-m="stat" type="button">属性数值</button><button data-m="time" type="button">限时 60 秒</button></div>
+  <div class="panel glass guess" id="guess">
+   <div class="guess-top"><select id="guessGen" class="glass-btn"><option value="">全部世代</option></select>
+    <div class="streak"><span id="timerBox" hidden>剩余 <b id="timer">60</b></span><span>连对 <b id="streak">0</b></span><span>最高 <b id="best">0</b></span></div></div>
+   <div class="stage" id="guessStage"><span class="halo"></span><img id="guessImg" alt="神秘的宝可梦" draggable="false"><canvas id="guessSil" aria-hidden="true"></canvas><button class="cry-btn" id="cryBtn" type="button" hidden aria-label="播放叫声">▶</button><div class="stat-hint" id="statHint" hidden></div></div>
+   <div class="guess-hint" id="guessHint"></div>
+   <div class="options" id="guessOpts"></div>
+   <div class="guess-result" id="guessResult"></div>
+   <button class="glass-btn accent" id="guessNext" hidden>下一只 →</button>
+   <button class="glass-btn accent" id="timeStart" hidden>开始 60 秒挑战</button>
+  </div>
+  <details class="panel glass lb" id="lbBox"><summary>本机排行榜</summary><div id="lb"></div></details>
+  </div>
+  <div class="tool-view" id="tool-abilities" hidden><div class="tool-backbar"><button class="glass-btn back" data-go="" type="button">‹ 工具箱</button></div>
+   <h1 class="title">特性图鉴<small>点开查看拥有该特性的宝可梦</small></h1>
+   <div class="panel glass toolbar"><input type="search" id="abQ" placeholder="搜索特性名称或说明" autocomplete="off"><span class="count" id="abCount"></span></div>
+   <div class="dexlist" id="abList"><p class="muted">加载中…</p></div>
+  </div>
+  <div class="tool-view" id="tool-items" hidden><div class="tool-backbar"><button class="glass-btn back" data-go="" type="button">‹ 工具箱</button></div>
+   <h1 class="title">道具图鉴<small>数据来自游戏内中文说明</small></h1>
+   <div class="panel glass toolbar"><input type="search" id="itQ" placeholder="搜索道具名称或说明" autocomplete="off"><select id="itPk" class="glass-btn"><option value="">全部分类</option></select><span class="count" id="itCount"></span></div>
+   <div class="dexlist" id="itList"><p class="muted">加载中…</p></div>
+   <button class="more glass-btn" id="itMore" hidden>加载更多</button>
+  </div>
+  <div class="tool-view" id="tool-collection" hidden><div class="tool-backbar"><button class="glass-btn back" data-go="" type="button">‹ 工具箱</button></div>
+   <h1 class="title">收集进度<small>在详情页点「标记已抓到」，记录保存在本机</small></h1>
+   <div id="colBox"></div>
+  </div>
+ </div></section>
+</main>
+
+<button class="fab" id="randomBtn" type="button" aria-label="随机发现"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="9" r="1.4" fill="currentColor"/><circle cx="15" cy="15" r="1.4" fill="currentColor"/><circle cx="15" cy="9" r="1.4" fill="currentColor"/><circle cx="9" cy="15" r="1.4" fill="currentColor"/></svg><span>随机发现</span></button>
+
+<nav class="tabbar glass" id="tabbar" role="tablist" aria-label="分区">
+ <span class="indicator" id="indicator" aria-hidden="true"><span class="goo"><i class="dr tail"></i><i class="dr head"></i></span><i class="lens"></i></span><span class="ripples" id="ripples" aria-hidden="true"></span>
+ <button class="tab" data-i="0" role="tab" aria-label="图鉴"><span class="app-icon ic-dex"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.5 12h5.6M14.9 12h5.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">图鉴</span></button>
+ <button class="tab" data-i="1" role="tab" aria-label="属性"><span class="app-icon ic-type"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c2.6 3 4.6 5.5 4.6 8.3a4.6 4.6 0 0 1-9.2 0c0-2.8 2-5.3 4.6-8.3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.5 20.5c2.4-1.5 4.9-1.5 7.5 0s5.1 1.5 7.5 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">属性</span></button>
+ <button class="tab" data-i="2" role="tab" aria-label="技能"><span class="app-icon ic-move"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 2.8 5.5 13.5h5.8l-1.3 7.7 8.5-11.2h-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">技能</span></button>
+ <button class="tab" data-i="3" role="tab" aria-label="队伍"><span class="app-icon ic-team"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16.5" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 19.5c.5-3.4 2.6-5.3 5.5-5.3s5 1.9 5.5 5.3M14.5 14.6c.6-.2 1.3-.3 2-.3 2.4 0 4.1 1.6 4.5 4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">队伍</span></button>
+ <button class="tab" data-i="4" role="tab" aria-label="对比"><span class="app-icon ic-cmp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 20.4 9.3 17.2 19.2H6.8L3.6 9.3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8.2 15.6 10.8 14.2 15H9.8L8.4 10.8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">对比</span></button>
+ <button class="tab" data-i="5" role="tab" aria-label="工具"><span class="app-icon ic-tools"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="16.75" cy="16.75" r="3.3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span><span class="lbl">工具</span></button>
+</nav>
+
+<div class="flip-bg" id="flipBg"><div class="flip-wrap"><div class="flip" id="flip">
+  <div class="face back glass strong"><span class="big-ball"></span><span class="muted">随机发现</span></div>
+  <div class="face front glass strong" id="flipFront"></div></div>
+  <div class="flip-actions"><button class="glass-btn" id="flipAgain">🎲 再来一只</button><button class="glass-btn accent" id="flipOpen">查看详情</button><button class="glass-btn round" id="flipClose" aria-label="关闭">×</button></div></div></div>
+
+<div class="sheet-bg" id="sheetBg">
+ <aside class="sheet glass strong" id="sheet" role="dialog" aria-modal="true" aria-label="宝可梦详情">
+  <button class="close glass-btn round" id="sheetClose" aria-label="关闭">×</button>
+  <div class="sheet-scroll" id="sheetScroll"><div class="sheet-content" id="sheetContent"></div></div>
+ </aside>
+</div>
+
+<script src="js/compat.js"></script><script src="js/release.js"></script><script src="data/types.js"></script><script src="data/pokemon.js"></script><script src="data/moves.js"></script><script src="data/evolution.js"></script>
+<script src="js/common.js"></script><script src="js/pokedex.js"></script><script src="js/types.js"></script><script src="js/moves.js"></script><script src="js/team.js"></script><script src="js/compare.js"></script><script src="js/guess.js"></script><script src="js/tools.js"></script><script src="js/battle.js"></script><script src="js/map.js"></script><script src="js/updater.js"></script><script src="js/notice.js"></script><script src="js/app.js"></script>
+</body></html>

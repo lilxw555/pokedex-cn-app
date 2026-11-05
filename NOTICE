@@ -1,0 +1,14 @@
+NOTICE / 第三方内容说明
+
+The MIT License in LICENSE covers ONLY the original source code of this project
+(HTML/CSS/JS, scripts, app wrappers, and the original map schematics, promo video and music).
+
+It does NOT cover, and grants no rights to:
+- Pokémon names, characters, artwork, sprites, animations, cries and other Pokémon IP:
+  © Nintendo / Creatures Inc. / GAME FREAK inc. / The Pokémon Company.
+- img/spr, img/art, img/item: from PokeAPI/sprites (https://github.com/PokeAPI/sprites)
+- img/anim: from PokeAPI/sprites, sprites/pokemon/other/showdown (Pokémon Showdown community)
+- cries/: from PokeAPI/cries (https://github.com/PokeAPI/cries)
+- data/: derived from PokeAPI data (https://github.com/PokeAPI/pokeapi, BSD-3-Clause)
+
+本项目为非官方、非商业的粉丝作品，与上述公司无关。

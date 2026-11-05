@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.keystore
+*.jks
+*.idsig
+download/*.exe
+download/*.apk
+app/android/out/
+app/android/assets/

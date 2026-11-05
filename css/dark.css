@@ -1,0 +1,77 @@
+/* ===== 深色模式：跟随系统（prefers-color-scheme），无需手动开关 ===== */
+@media (prefers-color-scheme:dark){
+:root{color-scheme:dark;--text:#f2f3fa;--muted:rgba(232,235,255,.62);--ios-blue:#4da3ff;
+ --glass-fill:linear-gradient(145deg,rgba(62,66,96,.56),rgba(28,30,46,.36));
+ --glass-edge:linear-gradient(135deg,rgba(255,255,255,.38),rgba(255,255,255,.06) 40%,rgba(255,255,255,.04) 62%,rgba(255,255,255,.26));
+ --glass-shadow:inset 0 1px 1px rgba(255,255,255,.22),inset 0 0 24px rgba(255,255,255,.035),0 14px 34px -10px rgba(0,0,0,.65),0 2px 6px rgba(0,0,0,.3)}
+body{background:#0b0c12}
+.bg{background:radial-gradient(120% 80% at 0% 0%,#1b1330 0%,transparent 60%),radial-gradient(100% 90% at 100% 100%,#0b2230 0%,transparent 60%),linear-gradient(135deg,#0d0e18,#0b1122 50%,#150f16)}
+.blob{opacity:.26;filter:blur(90px)}.b4{opacity:.22}.b5{opacity:.14}
+body.tinted .blob.tint{opacity:.4}
+.grain{opacity:.06;mix-blend-mode:screen}
+.glass.strong{--glass-fill:linear-gradient(150deg,rgba(72,76,106,.82),rgba(38,40,60,.68))}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass{--glass-fill:linear-gradient(145deg,rgba(40,42,60,.96),rgba(26,28,42,.92))}}
+
+/* 控件 */
+.glass-btn{background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.06)) padding-box,var(--glass-edge) border-box;box-shadow:inset 0 1px 1px rgba(255,255,255,.25),0 4px 14px -4px rgba(0,0,0,.5)}
+select.glass-btn{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23c5c9e0' stroke-width='1.6' fill='none'/%3E%3C/svg%3E") no-repeat right 13px center,linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.06)) padding-box,var(--glass-edge) border-box}
+select option{background:#1c1e2e;color:#f2f3fa}
+.glass-btn.accent{background:var(--ios-blue);box-shadow:inset 0 1px 1px rgba(255,255,255,.4),0 6px 16px -6px rgba(10,122,255,.7)}
+.glass-btn.on{background:linear-gradient(180deg,#ffe58a,#ffc43d) padding-box,var(--glass-edge) border-box;color:#3a2a00}
+.section-title{background:rgba(255,255,255,.1)}
+.toolbar input[type=search],.picker input{background-color:rgba(255,255,255,.09);border-color:rgba(255,255,255,.12);box-shadow:none;color:var(--text)}
+.toolbar input[type=search]:focus,.picker input:focus{background-color:rgba(255,255,255,.15);box-shadow:0 0 0 3px rgba(77,163,255,.3)}
+input::placeholder{color:rgba(232,235,255,.42)}
+.chip{background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.06)) padding-box,var(--glass-edge) border-box;box-shadow:inset 0 1px 1px rgba(255,255,255,.22),0 4px 12px -6px rgba(0,0,0,.5)}
+.chip.on{background:linear-gradient(180deg,#fff,var(--c)) padding-box,var(--glass-edge) border-box;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 75%,#fff),var(--c)) padding-box,var(--glass-edge) border-box}
+
+/* 卡片 */
+.card{background:linear-gradient(160deg,rgba(70,74,106,.62),rgba(32,34,52,.42)) padding-box,var(--glass-edge) border-box;box-shadow:inset 0 1px 1px rgba(255,255,255,.22),inset 0 0 20px rgba(255,255,255,.03),0 12px 26px -12px rgba(0,0,0,.7)}
+.card::before{opacity:.4}
+.card .sprite-wrap{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);box-shadow:inset 0 1px 1px rgba(255,255,255,.2)}
+.card .no{color:#fff;color:color-mix(in srgb,var(--c) 75%,#fff)}
+.bst-bar,.bar,.cbar{background:rgba(255,255,255,.12);box-shadow:none}
+.star{color:rgba(255,255,255,.4)}
+
+/* Tab 栏与水珠 */
+.tab.active{color:var(--ios-blue)}
+.indicator .goo{opacity:.2}
+.indicator .lens{border-color:rgba(255,255,255,.4);box-shadow:inset 0 2px 3px rgba(255,255,255,.35),inset 0 -8px 14px rgba(77,163,255,.18),0 8px 18px -8px rgba(0,0,0,.6)}
+.drip{border-color:rgba(255,255,255,.55);box-shadow:0 0 10px rgba(130,180,255,.5)}
+
+/* 浮层 */
+.sheet-bg{background:rgba(0,0,0,.42)}.flip-bg{background:rgba(0,0,0,.5)}
+.flavor,.abil,.pill,.enc-ver,.evo-item{background-color:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);box-shadow:inset 0 1px 1px rgba(255,255,255,.12)}
+.evo-item{background:radial-gradient(circle at 50% 30%,var(--c),transparent 70%),rgba(255,255,255,.07);background:radial-gradient(circle at 50% 30%,color-mix(in srgb,var(--c) 28%,transparent),transparent 70%),rgba(255,255,255,.07)}
+.enc-row{border-top-color:rgba(255,255,255,.1)}
+.enc-row .cond{color:#a99bff}
+.sg.hi,.sg:hover{background:rgba(255,255,255,.12)}
+.slot.empty{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.04)}
+.slot .rm{background:rgba(255,255,255,.18);color:var(--text)}
+
+/* 相克表 / 技能 / 队伍 / 对比 */
+.chart td,.heat td{background:rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.chart td.x05{background:linear-gradient(180deg,#e58a8a,#c25b5b);color:#fff}
+.chart td.x0{background:linear-gradient(180deg,#0b0b10,#000);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.lg.x1{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3)}
+.heat td.m0{background:linear-gradient(#0b0b10,#000);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.heat td.m2{color:#fff;background:linear-gradient(#e0705f,#c4483a)}.heat td.m05{color:#06260f;background:linear-gradient(#a6e3b0,#7ccb89)}
+.heat td.cnt{background:none;box-shadow:none}
+.heat td.cnt.w{color:#ff8c82}.heat td.cnt.r{color:#6fd68f}
+#moveList .mrow:nth-child(odd){background:rgba(255,255,255,.05)}
+#moveList .mrow:hover{background:rgba(255,255,255,.12)}
+.cat.physical{background:linear-gradient(#6b3322,#4c2216);color:#ffc4ad;box-shadow:none}
+.cat.special{background:linear-gradient(#26396b,#1a274c);color:#bcd0ff;box-shadow:none}
+.cat.status{background:linear-gradient(#3a3c4a,#2a2c38);color:#d2d4e2;box-shadow:none}
+.radar .ring{fill:rgba(255,255,255,.04);stroke:rgba(255,255,255,.16)}.radar .axis{stroke:rgba(255,255,255,.16)}
+.radar text{fill:#d6daf0}.radar text.scale{fill:#8f94ae}
+.mu{background:rgba(255,255,255,.12)}.mu.bad{background:#7a3a34;color:#ffd0c8}
+.cmp-stat.total{border-top-color:rgba(255,255,255,.14)}.cmp-stat b.win,.ok{color:#6fd68f}
+.unc-badge i{color:#ff8c82}
+.streak b{color:#8aa2ff}
+
+/* 猜一猜：剪影在深色背景上要用浅色 */
+.stage .halo{background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%)}
+.stage img{filter:brightness(0) invert(.88) drop-shadow(0 8px 10px rgba(0,0,0,.4))}
+.stage.revealed img{filter:brightness(1) drop-shadow(0 14px 18px rgba(0,0,0,.5))}
+}
