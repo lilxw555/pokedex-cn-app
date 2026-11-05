@@ -359,3 +359,15 @@ footer{text-align:center;font-size:12px;color:var(--muted);padding:26px 10px 0;l
  .blob,.detail-hero .art{animation:none!important}
  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
 }
+
+/* 宣传视频（视频走 jsDelivr，不占 Netlify 流量） */
+.promo{margin:0 0 12px;padding:0;overflow:hidden}
+.promo summary{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;cursor:pointer;list-style:none}
+.promo summary::-webkit-details-marker{display:none}
+.promo-play{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(#e3350d 0 50%,#fff 50%);box-shadow:0 0 0 2px #1d1f24 inset;color:#1d1f24;font-size:11px;padding-left:2px}
+.promo[open] .promo-play{opacity:.6}
+.promo-box{position:relative;margin:0 auto;width:calc(100% - 24px);max-width:820px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000}
+@supports not (aspect-ratio:16/9){.promo-box{height:0;padding-top:56.25%}}
+.promo-box video{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;background:#000}
+.promo-err{position:absolute;left:0;right:0;bottom:0;margin:0;padding:10px;background:rgba(0,0,0,.7);color:#fff;text-align:center}
+.promo-foot{margin:8px auto 12px;width:calc(100% - 24px);max-width:820px}

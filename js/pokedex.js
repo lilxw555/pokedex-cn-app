@@ -166,3 +166,11 @@ function daily(){const d=new Date(),key=d.getFullYear()*10000+(d.getMonth()+1)*1
 daily();
 return {show,hide,step,closeFilter,daily,get filterOpen(){return !fp.hidden},get open(){return isOpen},get flipOpen(){return $('#flipBg').classList.contains('show')},closeFlip,BYID};
 })();
+
+// 宣传视频：两个源都失败（比如离线）时提示，不报错
+(function(){var v=document.getElementById('promoVideo');if(!v)return;var srcs=v.querySelectorAll('source'),last=srcs[srcs.length-1],err=v.parentNode.querySelector('.promo-err');
+ function fail(){if(err)err.hidden=false}
+ if(last)last.addEventListener('error',fail);v.addEventListener('error',fail);
+ v.addEventListener('loadedmetadata',function(){if(err)err.hidden=true});
+ var d=document.getElementById('promo');if(d)d.addEventListener('toggle',function(){if(!d.open&&!v.paused)v.pause()});
+ if(navigator.onLine===false&&err)err.hidden=false})();
